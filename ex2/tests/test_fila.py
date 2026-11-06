@@ -98,3 +98,16 @@ def test_sequencia_acima_do_limite_cede_a_normal_que_chega():
     fila.emitir("prioritaria")
     fila.emitir("normal")
     assert chamar_todas(fila, 2) == ["N1", "P4"]
+
+
+def test_normal_chamada_por_falta_de_prioritaria_tambem_zera():
+    fila = Fila()
+    fila.emitir("prioritaria")
+    fila.emitir("prioritaria")
+    chamar_todas(fila, 2)                     # P1, P2 -> sequencia em 2
+    fila.emitir("normal")
+    assert fila.chamar() == "N1"              # chamada por falta de prioritaria
+    fila.emitir("normal")
+    for _ in range(3):
+        fila.emitir("prioritaria")
+    assert chamar_todas(fila, 4) == ["P3", "P4", "N2", "P5"]
