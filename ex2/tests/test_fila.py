@@ -50,3 +50,10 @@ def test_chamar_devolve_a_senha_e_tira_da_espera():
     fila.emitir("normal")
     assert fila.chamar() == "N1"
     assert fila.aguardando == 0
+
+
+def test_mesmo_tipo_segue_ordem_de_chegada():
+    fila = Fila()
+    fila.emitir("normal")
+    fila.emitir("normal")
+    assert chamar_todas(fila, 2) == ["N1", "N2"]
