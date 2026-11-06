@@ -3,7 +3,9 @@ from collections import Counter
 
 def _palavras(texto):
     for bruta in texto.lower().split():
-        yield bruta.strip(".,;:!?")
+        palavra = bruta.strip(".,;:!?")
+        if palavra:
+            yield palavra
 
 
 def contar_palavras(texto):
