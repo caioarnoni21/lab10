@@ -57,3 +57,10 @@ def test_mesmo_tipo_segue_ordem_de_chegada():
     fila.emitir("normal")
     fila.emitir("normal")
     assert chamar_todas(fila, 2) == ["N1", "N2"]
+
+
+def test_prioritaria_passa_na_frente_da_normal():
+    fila = Fila()
+    fila.emitir("normal")
+    fila.emitir("prioritaria")
+    assert chamar_todas(fila, 2) == ["P1", "N1"]
