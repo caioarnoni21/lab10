@@ -19,3 +19,7 @@ def test_palavra_repetida_soma_ocorrencias():
 
 def test_quebra_de_linha_separa_palavras():
     assert contar_palavras("bom\ndia") == {"bom": 1, "dia": 1}
+
+
+def test_varios_espacos_nao_criam_palavra_vazia():
+    assert contar_palavras("bom   dia") == {"bom": 1, "dia": 1}
