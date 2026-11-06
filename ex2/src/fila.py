@@ -7,6 +7,7 @@ class Fila:
     def __init__(self):
         self._emitidas = {tipo: 0 for tipo in PREFIXOS}
         self._filas = {tipo: deque() for tipo in PREFIXOS}
+        self._prioritarias_seguidas = 0
 
     @property
     def aguardando(self):
@@ -21,8 +22,11 @@ class Fila:
         return senha
 
     def chamar(self):
-        if self._filas["prioritaria"]:
-            return self._filas["prioritaria"].popleft()
-        if self._filas["normal"]:
-            return self._filas["normal"].popleft()
+        normais = self._filas["normal"]
+        prioritarias = self._filas["prioritaria"]
+        if prioritarias and not (self._prioritarias_seguidas >= 2 and normais):
+            self._prioritarias_seguidas += 1
+            return prioritarias.popleft()
+        if normais:
+            return normais.popleft()
         raise IndexError("fila vazia")
