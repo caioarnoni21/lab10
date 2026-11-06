@@ -74,3 +74,17 @@ def test_cupom_vinte_um_centavo_abaixo_do_minimo(carrinho):
     carrinho.adicionar(29999)
     carrinho.aplicar_cupom("VINTE")
     assert carrinho.total == 29999
+
+
+def test_segundo_cupom_substitui_o_primeiro(carrinho):
+    carrinho.adicionar(30000)
+    carrinho.aplicar_cupom("DEZ")
+    carrinho.aplicar_cupom("VINTE")
+    assert carrinho.total == 24000
+
+
+def test_cupom_menor_depois_do_maior_tambem_substitui(carrinho):
+    carrinho.adicionar(30000)
+    carrinho.aplicar_cupom("VINTE")
+    carrinho.aplicar_cupom("DEZ")
+    assert carrinho.total == 27000
