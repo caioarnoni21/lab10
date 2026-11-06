@@ -27,3 +27,7 @@ def test_varios_espacos_nao_criam_palavra_vazia():
 
 def test_hifen_interno_faz_parte_da_palavra():
     assert contar_palavras("guarda-chuva") == {"guarda-chuva": 1}
+
+
+def test_maiusculas_contam_como_minusculas():
+    assert contar_palavras("Dia dia DIA") == {"dia": 3}
