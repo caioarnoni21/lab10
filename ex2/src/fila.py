@@ -19,4 +19,4 @@ class Fila:
     def chamar(self):
         if not self._esperando:
             raise IndexError("fila vazia")
-        return self._esperando.pop()
+        return self._esperando.pop(0)
