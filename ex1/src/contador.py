@@ -8,5 +8,5 @@ def _palavras(texto):
             yield palavra
 
 
-def contar_palavras(texto):
+def contar_palavras(texto):git 
     return dict(Counter(_palavras(texto)))
