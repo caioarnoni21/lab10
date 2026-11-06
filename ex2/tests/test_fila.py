@@ -81,3 +81,10 @@ def test_normal_chamada_zera_a_sequencia_de_prioritarias():
     for _ in range(4):
         fila.emitir("prioritaria")
     assert chamar_todas(fila, 6) == ["P1", "P2", "N1", "P3", "P4", "N2"]
+
+
+def test_sem_normal_esperando_o_limite_nao_vale():
+    fila = Fila()
+    for _ in range(3):
+        fila.emitir("prioritaria")
+    assert chamar_todas(fila, 3) == ["P1", "P2", "P3"]
