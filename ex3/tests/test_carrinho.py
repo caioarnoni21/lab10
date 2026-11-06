@@ -68,3 +68,9 @@ def test_cupom_vinte_no_minimo_da_20_por_cento(carrinho):
     carrinho.adicionar(30000)
     carrinho.aplicar_cupom("VINTE")
     assert carrinho.total == 24000
+
+
+def test_cupom_vinte_um_centavo_abaixo_do_minimo(carrinho):
+    carrinho.adicionar(29999)
+    carrinho.aplicar_cupom("VINTE")
+    assert carrinho.total == 29999
