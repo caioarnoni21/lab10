@@ -23,3 +23,7 @@ def test_quebra_de_linha_separa_palavras():
 
 def test_varios_espacos_nao_criam_palavra_vazia():
     assert contar_palavras("bom   dia") == {"bom": 1, "dia": 1}
+
+
+def test_hifen_interno_faz_parte_da_palavra():
+    assert contar_palavras("guarda-chuva") == {"guarda-chuva": 1}
