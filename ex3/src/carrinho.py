@@ -1,4 +1,4 @@
-CUPONS = {"DEZ": 10}  # codigo -> porcentagem de desconto
+CUPONS = {"DEZ": 10, "VINTE": 20}  # codigo -> porcentagem de desconto
 
 
 class Carrinho:
