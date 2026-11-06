@@ -1,22 +1,31 @@
+from collections import deque
+
+
 class Fila:
     def __init__(self):
         self._emitidas = {"normal": 0, "prioritaria": 0}
-        self._esperando = []
+        self._normais = deque()
+        self._prioritarias = deque()
 
     @property
     def aguardando(self):
-        return len(self._esperando)
+        return len(self._normais) + len(self._prioritarias)
 
     def emitir(self, tipo):
         if tipo not in self._emitidas:
             raise ValueError(f"tipo desconhecido: {tipo}")
         self._emitidas[tipo] += 1
-        prefixo = "P" if tipo == "prioritaria" else "N"
-        senha = f"{prefixo}{self._emitidas[tipo]}"
-        self._esperando.append(senha)
+        if tipo == "prioritaria":
+            senha = f"P{self._emitidas[tipo]}"
+            self._prioritarias.append(senha)
+        else:
+            senha = f"N{self._emitidas[tipo]}"
+            self._normais.append(senha)
         return senha
 
     def chamar(self):
-        if not self._esperando:
-            raise IndexError("fila vazia")
-        return self._esperando.pop(0)
+        if self._prioritarias:
+            return self._prioritarias.popleft()
+        if self._normais:
+            return self._normais.popleft()
+        raise IndexError("fila vazia")
