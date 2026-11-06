@@ -88,3 +88,13 @@ def test_sem_normal_esperando_o_limite_nao_vale():
     for _ in range(3):
         fila.emitir("prioritaria")
     assert chamar_todas(fila, 3) == ["P1", "P2", "P3"]
+
+
+def test_sequencia_acima_do_limite_cede_a_normal_que_chega():
+    fila = Fila()
+    for _ in range(3):
+        fila.emitir("prioritaria")
+    chamar_todas(fila, 3)
+    fila.emitir("prioritaria")
+    fila.emitir("normal")
+    assert chamar_todas(fila, 2) == ["N1", "P4"]
