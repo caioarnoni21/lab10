@@ -28,5 +28,6 @@ class Fila:
             self._prioritarias_seguidas += 1
             return prioritarias.popleft()
         if normais:
+            self._prioritarias_seguidas = 0
             return normais.popleft()
         raise IndexError("fila vazia")
