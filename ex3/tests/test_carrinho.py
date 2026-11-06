@@ -88,3 +88,8 @@ def test_cupom_menor_depois_do_maior_tambem_substitui(carrinho):
     carrinho.aplicar_cupom("VINTE")
     carrinho.aplicar_cupom("DEZ")
     assert carrinho.total == 27000
+
+
+def test_quantidade_zero_e_rejeitada(carrinho):
+    with pytest.raises(ValueError):
+        carrinho.adicionar(1000, quantidade=0)
