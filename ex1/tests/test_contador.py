@@ -31,3 +31,7 @@ def test_hifen_interno_faz_parte_da_palavra():
 
 def test_maiusculas_contam_como_minusculas():
     assert contar_palavras("Dia dia DIA") == {"dia": 3}
+
+
+def test_pontuacao_no_fim_e_ignorada():
+    assert contar_palavras("fim. Fim!") == {"fim": 2}
