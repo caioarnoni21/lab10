@@ -38,3 +38,8 @@ def test_aguardando_conta_as_senhas_emitidas():
     fila.emitir("normal")
     fila.emitir("prioritaria")
     assert fila.aguardando == 2
+
+
+def test_chamar_fila_vazia_lanca_index_error():
+    with pytest.raises(IndexError):
+        Fila().chamar()
