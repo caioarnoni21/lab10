@@ -1,4 +1,2 @@
 def contar_palavras(texto):
-    if not texto:
-        return {}
-    return {texto: 1}
+    return {palavra: 1 for palavra in texto.split()}
