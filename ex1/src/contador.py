@@ -1,6 +1,10 @@
+from collections import Counter
+
+
+def _palavras(texto):
+    for bruta in texto.lower().split():
+        yield bruta.strip(".,;:!?")
+
+
 def contar_palavras(texto):
-    contagem = {}
-    for palavra in texto.lower().split():
-        palavra = palavra.strip(".,;:!?")
-        contagem[palavra] = contagem.get(palavra, 0) + 1
-    return contagem
+    return dict(Counter(_palavras(texto)))
