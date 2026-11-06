@@ -64,3 +64,11 @@ def test_prioritaria_passa_na_frente_da_normal():
     fila.emitir("normal")
     fila.emitir("prioritaria")
     assert chamar_todas(fila, 2) == ["P1", "N1"]
+
+
+def test_depois_de_duas_prioritarias_chama_uma_normal():
+    fila = Fila()
+    fila.emitir("normal")
+    for _ in range(3):
+        fila.emitir("prioritaria")
+    assert chamar_todas(fila, 4) == ["P1", "P2", "N1", "P3"]
