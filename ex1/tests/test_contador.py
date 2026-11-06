@@ -35,3 +35,7 @@ def test_maiusculas_contam_como_minusculas():
 
 def test_pontuacao_no_fim_e_ignorada():
     assert contar_palavras("fim. Fim!") == {"fim": 2}
+
+
+def test_virgula_e_ponto_e_virgula_nas_bordas():
+    assert contar_palavras(",dia, ;dia;") == {"dia": 2}
