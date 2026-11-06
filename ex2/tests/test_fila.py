@@ -1,0 +1,113 @@
+import pytest
+
+from fila import Fila
+
+
+def chamar_todas(fila, n):
+    return [fila.chamar() for _ in range(n)]
+
+
+def test_fila_nova_nao_tem_ninguem_aguardando():
+    assert Fila().aguardando == 0
+
+
+def test_primeira_senha_normal_e_n1():
+    assert Fila().emitir("normal") == "N1"
+
+
+def test_senhas_normais_sao_numeradas_em_sequencia():
+    fila = Fila()
+    fila.emitir("normal")
+    assert fila.emitir("normal") == "N2"
+
+
+def test_prioritaria_tem_numeracao_propria():
+    fila = Fila()
+    fila.emitir("normal")
+    assert fila.emitir("prioritaria") == "P1"
+    assert fila.emitir("normal") == "N2"
+
+
+def test_tipo_desconhecido_lanca_value_error():
+    with pytest.raises(ValueError):
+        Fila().emitir("vip")
+
+
+def test_aguardando_conta_as_senhas_emitidas():
+    fila = Fila()
+    fila.emitir("normal")
+    fila.emitir("prioritaria")
+    assert fila.aguardando == 2
+
+
+def test_chamar_fila_vazia_lanca_index_error():
+    with pytest.raises(IndexError):
+        Fila().chamar()
+
+
+def test_chamar_devolve_a_senha_e_tira_da_espera():
+    fila = Fila()
+    fila.emitir("normal")
+    assert fila.chamar() == "N1"
+    assert fila.aguardando == 0
+
+
+def test_mesmo_tipo_segue_ordem_de_chegada():
+    fila = Fila()
+    fila.emitir("normal")
+    fila.emitir("normal")
+    assert chamar_todas(fila, 2) == ["N1", "N2"]
+
+
+def test_prioritaria_passa_na_frente_da_normal():
+    fila = Fila()
+    fila.emitir("normal")
+    fila.emitir("prioritaria")
+    assert chamar_todas(fila, 2) == ["P1", "N1"]
+
+
+def test_depois_de_duas_prioritarias_chama_uma_normal():
+    fila = Fila()
+    fila.emitir("normal")
+    for _ in range(3):
+        fila.emitir("prioritaria")
+    assert chamar_todas(fila, 4) == ["P1", "P2", "N1", "P3"]
+
+
+def test_normal_chamada_zera_a_sequencia_de_prioritarias():
+    fila = Fila()
+    fila.emitir("normal")
+    fila.emitir("normal")
+    for _ in range(4):
+        fila.emitir("prioritaria")
+    assert chamar_todas(fila, 6) == ["P1", "P2", "N1", "P3", "P4", "N2"]
+
+
+def test_sem_normal_esperando_o_limite_nao_vale():
+    fila = Fila()
+    for _ in range(3):
+        fila.emitir("prioritaria")
+    assert chamar_todas(fila, 3) == ["P1", "P2", "P3"]
+
+
+def test_sequencia_acima_do_limite_cede_a_normal_que_chega():
+    fila = Fila()
+    for _ in range(3):
+        fila.emitir("prioritaria")
+    chamar_todas(fila, 3)
+    fila.emitir("prioritaria")
+    fila.emitir("normal")
+    assert chamar_todas(fila, 2) == ["N1", "P4"]
+
+
+def test_normal_chamada_por_falta_de_prioritaria_tambem_zera():
+    fila = Fila()
+    fila.emitir("prioritaria")
+    fila.emitir("prioritaria")
+    chamar_todas(fila, 2)                     # P1, P2 -> sequencia em 2
+    fila.emitir("normal")
+    assert fila.chamar() == "N1"              # chamada por falta de prioritaria
+    fila.emitir("normal")
+    for _ in range(3):
+        fila.emitir("prioritaria")
+    assert chamar_todas(fila, 4) == ["P3", "P4", "N2", "P5"]
