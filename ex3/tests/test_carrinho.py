@@ -62,3 +62,9 @@ def test_desconto_vale_quando_subtotal_chega_ao_minimo(carrinho):
     assert carrinho.total == 5000
     carrinho.adicionar(5000)
     assert carrinho.total == 9000
+
+
+def test_cupom_vinte_no_minimo_da_20_por_cento(carrinho):
+    carrinho.adicionar(30000)
+    carrinho.aplicar_cupom("VINTE")
+    assert carrinho.total == 24000
