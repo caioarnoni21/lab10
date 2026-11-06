@@ -7,6 +7,8 @@ class Fila:
         return 0
 
     def emitir(self, tipo):
+        if tipo not in self._emitidas:
+            raise ValueError(f"tipo desconhecido: {tipo}")
         self._emitidas[tipo] += 1
         prefixo = "P" if tipo == "prioritaria" else "N"
         return f"{prefixo}{self._emitidas[tipo]}"
