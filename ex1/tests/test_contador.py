@@ -15,3 +15,7 @@ def test_espaco_separa_duas_palavras():
 
 def test_palavra_repetida_soma_ocorrencias():
     assert contar_palavras("dia a dia") == {"dia": 2, "a": 1}
+
+
+def test_quebra_de_linha_separa_palavras():
+    assert contar_palavras("bom\ndia") == {"bom": 1, "dia": 1}
