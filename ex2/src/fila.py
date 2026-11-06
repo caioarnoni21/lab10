@@ -15,3 +15,7 @@ class Fila:
         senha = f"{prefixo}{self._emitidas[tipo]}"
         self._esperando.append(senha)
         return senha
+
+    def chamar(self):
+        if not self._esperando:
+            raise IndexError("fila vazia")
