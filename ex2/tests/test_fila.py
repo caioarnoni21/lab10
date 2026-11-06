@@ -31,3 +31,10 @@ def test_prioritaria_tem_numeracao_propria():
 def test_tipo_desconhecido_lanca_value_error():
     with pytest.raises(ValueError):
         Fila().emitir("vip")
+
+
+def test_aguardando_conta_as_senhas_emitidas():
+    fila = Fila()
+    fila.emitir("normal")
+    fila.emitir("prioritaria")
+    assert fila.aguardando == 2
