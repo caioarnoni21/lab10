@@ -43,3 +43,10 @@ def test_aguardando_conta_as_senhas_emitidas():
 def test_chamar_fila_vazia_lanca_index_error():
     with pytest.raises(IndexError):
         Fila().chamar()
+
+
+def test_chamar_devolve_a_senha_e_tira_da_espera():
+    fila = Fila()
+    fila.emitir("normal")
+    assert fila.chamar() == "N1"
+    assert fila.aguardando == 0
