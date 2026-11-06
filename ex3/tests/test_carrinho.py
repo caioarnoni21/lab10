@@ -93,3 +93,13 @@ def test_cupom_menor_depois_do_maior_tambem_substitui(carrinho):
 def test_quantidade_zero_e_rejeitada(carrinho):
     with pytest.raises(ValueError):
         carrinho.adicionar(1000, quantidade=0)
+
+
+def test_quantidade_negativa_e_rejeitada(carrinho):
+    with pytest.raises(ValueError):
+        carrinho.adicionar(1000, quantidade=-1)
+
+
+def test_quantidade_um_explicita_e_aceita(carrinho):
+    carrinho.adicionar(1000, quantidade=1)
+    assert carrinho.total == 1000
