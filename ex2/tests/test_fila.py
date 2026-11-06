@@ -26,3 +26,8 @@ def test_prioritaria_tem_numeracao_propria():
     fila.emitir("normal")
     assert fila.emitir("prioritaria") == "P1"
     assert fila.emitir("normal") == "N2"
+
+
+def test_tipo_desconhecido_lanca_value_error():
+    with pytest.raises(ValueError):
+        Fila().emitir("vip")
