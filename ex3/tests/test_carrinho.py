@@ -42,3 +42,23 @@ def test_cupom_antes_de_itens_abaixo_do_minimo_nao_da_desconto(carrinho):
     carrinho.aplicar_cupom("DEZ")
     carrinho.adicionar(1000)
     assert carrinho.total == 1000
+
+
+def test_cupom_dez_um_centavo_abaixo_do_minimo(carrinho):
+    carrinho.adicionar(9999)
+    carrinho.aplicar_cupom("DEZ")
+    assert carrinho.total == 9999
+
+
+def test_cupom_dez_exatamente_no_minimo(carrinho):
+    carrinho.adicionar(10000)
+    carrinho.aplicar_cupom("DEZ")
+    assert carrinho.total == 9000
+
+
+def test_desconto_vale_quando_subtotal_chega_ao_minimo(carrinho):
+    carrinho.aplicar_cupom("DEZ")
+    carrinho.adicionar(5000)
+    assert carrinho.total == 5000
+    carrinho.adicionar(5000)
+    assert carrinho.total == 9000
