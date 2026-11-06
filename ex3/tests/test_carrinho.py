@@ -103,3 +103,10 @@ def test_quantidade_negativa_e_rejeitada(carrinho):
 def test_quantidade_um_explicita_e_aceita(carrinho):
     carrinho.adicionar(1000, quantidade=1)
     assert carrinho.total == 1000
+
+
+@pytest.mark.parametrize("quantidade", [1.5, 2.0, "2"])
+def test_quantidade_nao_inteira_e_rejeitada(carrinho, quantidade):
+    with pytest.raises(ValueError):
+        carrinho.adicionar(1000, quantidade=quantidade)
+    assert carrinho.total == 0
